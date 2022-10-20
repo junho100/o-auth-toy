@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { GoogleStrategy } from './google.strategy';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { AppService } from './app.service';
     HttpModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, GoogleStrategy],
 })
 export class AppModule {}

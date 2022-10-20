@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AppService } from './app.service';
 import { GithubCodeDto } from './dto/github-code.dto';
 
@@ -22,5 +31,20 @@ export class AppController {
         user,
       },
     };
+  }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth(): Promise<void> {
+    // redirect google login page
+  }
+
+  @Get('login/callback')
+  @UseGuards(AuthGuard('google'))
+  async googleAuthCallback(@Req() req: any, @Res() res: any) {
+    // ...
+    console.log(req.user);
+    const { user } = req;
+    res.send('aa');
   }
 }
